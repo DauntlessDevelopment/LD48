@@ -12,6 +12,7 @@ public class PlayerController : Agent
 
     void Start()
     {
+        ServiceLocator.SetPlayer(this);
         is_player = true;
         Cursor.lockState = CursorLockMode.Locked;
         weapon.AssignOwnership();
@@ -27,19 +28,19 @@ public class PlayerController : Agent
     {
         if(Input.GetKey(KeyCode.W))
         {
-            transform.Translate(transform.forward * move_speed * Time.deltaTime);
+            transform.Translate(transform.forward * move_speed * Time.deltaTime, Space.World);
         }
         else if(Input.GetKey(KeyCode.S))
         {
-            transform.Translate(-transform.forward * move_speed * Time.deltaTime);
+            transform.Translate(-transform.forward * move_speed * Time.deltaTime, Space.World);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(transform.right * move_speed * Time.deltaTime);
+            transform.Translate(transform.right * move_speed * Time.deltaTime, Space.World);
         }
         else if(Input.GetKey(KeyCode.A))
         {
-            transform.Translate(-transform.right * move_speed * Time.deltaTime);
+            transform.Translate(-transform.right * move_speed * Time.deltaTime, Space.World);
         }
     }
 
@@ -54,9 +55,16 @@ public class PlayerController : Agent
             head.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * turn_speed * Time.deltaTime,0,0));
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse0) && Time.timeSinceLevelLoad > last_attack_time + 1 / attack_rate)
         {
             weapon.Attack();
+            last_attack_time = Time.timeSinceLevelLoad;
         }
+    }
+
+    public override void ModifyHealth(int amount)
+    {
+        base.ModifyHealth(amount);
+        ServiceLocator.GetUIManager().UpdateHealthUI(health);
     }
 }

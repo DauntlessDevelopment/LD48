@@ -9,15 +9,22 @@ public class Agent : MonoBehaviour
     [SerializeField] private int base_mana = 100;
     [SerializeField] private int base_stamina = 100;
 
-    private int health = 100;
-    private int mana = 100;
-    private int stamina = 100;
+    protected int health = 100;
+    protected int mana = 100;
+    protected int stamina = 100;
 
     private int str_health_mod = 10;
     private int int_mana_mod = 10;
     private int agi_stamina_mod = 10;
 
     protected bool is_player = false;
+
+    protected bool alive = true;
+
+    protected float attack_rate = 2.5f;
+
+    protected float last_attack_time = 0;
+
 
     public bool IsPlayer() { return is_player; }
 
@@ -28,7 +35,7 @@ public class Agent : MonoBehaviour
         stamina = base_stamina + agi_stamina_mod * stats.GetAgility();
     }
 
-    public void ModifyHealth(int amount)
+    public virtual void ModifyHealth(int amount)
     {
         health += amount;
         Debug.Log("Health modified by " + amount);
@@ -36,14 +43,18 @@ public class Agent : MonoBehaviour
         {
             health = base_health + str_health_mod * stats.GetStrength();
         }
-        else if(health < 0)
+        else if(health <= 0)
         {
             health = 0;
+            Die();
         }
     }
 
     protected virtual void Die()
     {
         Debug.Log("Die");
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
+        alive = false;
     }
 }
