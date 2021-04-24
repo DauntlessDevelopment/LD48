@@ -1,0 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class GlobalVariables
+{
+    public static float BODY_PERSISTENCE = 2;
+   
+}

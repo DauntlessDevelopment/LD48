@@ -25,4 +25,25 @@ public static class ServiceLocator
         return UI_manager;
     }
 
+
+    private static LevelGeneration levelGeneration;
+    public static void SetLevelGeneration(LevelGeneration generation)
+    {
+        levelGeneration = generation;
+    }
+    public static LevelGeneration GetLevelGeneration()
+    {
+        return levelGeneration;
+    }
+
+
+    private static FloorManager currentFloor;
+    public static void SetCurrentFloor(FloorManager floor)
+    {
+        currentFloor = floor;
+    }
+    public static FloorManager GetCurrentFloor()
+    {
+        return currentFloor;
+    }
 }

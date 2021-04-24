@@ -25,6 +25,7 @@ public class EnemyAI : Agent
     {
         if(alive)
         {
+            //if ray can hit player
             if (player != null)
             {
                 //player_pos = player.transform.position;
@@ -48,7 +49,7 @@ public class EnemyAI : Agent
         }
         else
         {
-            if(Time.timeSinceLevelLoad > death_time + despawn_time)
+            if(Time.timeSinceLevelLoad > death_time + GlobalVariables.BODY_PERSISTENCE)
             {
                 Destroy(this.gameObject);
             }

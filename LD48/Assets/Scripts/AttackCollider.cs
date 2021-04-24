@@ -34,21 +34,31 @@ public class AttackCollider : MonoBehaviour
         transform.localScale = new Vector3(width, transform.localScale.y, transform.localScale.z);
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collision");
-        if (collision.transform.GetComponent<Agent>() != null)
+
+        if (other.GetComponent<Agent>() != null)
         {
-            Agent a = collision.transform.GetComponent<Agent>();
+            Agent a = other.GetComponent<Agent>();
             if (a.IsPlayer() != is_owned_by_player)
             {
                 a.ModifyHealth(-damage);
                 enemies_hit++;
 
-                a.GetComponent<Rigidbody>().AddForceAtPosition(100 * transform.forward, collision.contacts[0].point);
+                RaycastHit hit;
+                if(Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+                {
+                    if(hit.transform.GetComponent<Agent>() != null)
+                    {
+                        a.GetComponent<Rigidbody>().AddForceAtPosition(100 * transform.forward, hit.point);
+                    }
+                }
+
+                
             }
         }
-        
     }
 
 }

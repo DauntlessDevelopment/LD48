@@ -5,10 +5,15 @@ using UnityEngine;
 public class PlayerController : Agent
 {
     private float move_speed = 5f;
+    private float sprint_modifier = 2f;
     private float turn_speed = 200f;
     public GameObject head;
+    public GameObject feet;
 
     public MeleeWeapon weapon;
+
+    public bool on_ground;
+    public bool sprinting = false;
 
     void Start()
     {
@@ -22,26 +27,62 @@ public class PlayerController : Agent
     {
         HandleKeyboardInput();
         HandleMouseInput();
+        
     }
 
     private void HandleKeyboardInput()
     {
-        if(Input.GetKey(KeyCode.W))
+        if(on_ground)
         {
-            transform.Translate(transform.forward * move_speed * Time.deltaTime, Space.World);
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                sprinting = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                sprinting = false;
+            }
+
+            float speed = move_speed;
+            if (sprinting)
+            {
+                speed *= sprint_modifier;
+            }
+
+            Vector3 move_amount = new Vector3();
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                move_amount += transform.forward * speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                move_amount += -transform.forward * speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                move_amount += transform.right * speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                move_amount +=  -transform.right * speed * Time.deltaTime;
+            }
+            transform.Translate(move_amount, Space.World);
+
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GetComponent<Rigidbody>().AddForce(transform.up * 200f + move_amount.normalized * 50f * speed);
+                on_ground = false;
+            }
         }
-        else if(Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(-transform.forward * move_speed * Time.deltaTime, Space.World);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(transform.right * move_speed * Time.deltaTime, Space.World);
-        }
-        else if(Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(-transform.right * move_speed * Time.deltaTime, Space.World);
-        }
+
+        
+
+        
+
+
+
     }
 
     private void HandleMouseInput()
@@ -62,9 +103,20 @@ public class PlayerController : Agent
         }
     }
 
+
+
     public override void ModifyHealth(int amount)
     {
         base.ModifyHealth(amount);
         ServiceLocator.GetUIManager().UpdateHealthUI(health);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Walkable" && alive)
+        {
+            on_ground = true;
+            GetComponent<Rigidbody>().velocity = new Vector3();
+        }
     }
 }
