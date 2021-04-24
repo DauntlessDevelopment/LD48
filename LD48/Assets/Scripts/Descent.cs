@@ -25,6 +25,8 @@ public class Descent : MonoBehaviour
             ServiceLocator.GetLevelGeneration().GenerateFloor();
             //Build next floor
             ServiceLocator.GetLevelGeneration().BuildFloor(ServiceLocator.GetLevelGeneration().floor_num - 1);
+            //Populate floor
+            ServiceLocator.GetLevelGeneration().FillRooms(ServiceLocator.GetLevelGeneration().floor_num - 1);
             //TP to origin of next floor
             Vector3 start_pos = new Vector3();
 

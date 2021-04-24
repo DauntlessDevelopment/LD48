@@ -10,6 +10,7 @@ public class Room
     public bool west_open = false;
 
     public Vector2Int grid_coords = new Vector2Int();
+    public Vector3 world_pos = new Vector3();
 
     public GameObject room_object;
 

@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ServiceLocator.GetLevelGeneration().GenerateFloor();
-        ServiceLocator.GetLevelGeneration().BuildFloor(ServiceLocator.GetLevelGeneration().floor_num-1);
+        ServiceLocator.GetLevelGeneration().BuildFloor(ServiceLocator.GetLevelGeneration().floor_num - 1);
+        ServiceLocator.GetLevelGeneration().FillRooms(ServiceLocator.GetLevelGeneration().floor_num - 1);
 
     }
 

@@ -46,4 +46,15 @@ public static class ServiceLocator
     {
         return currentFloor;
     }
+
+
+    private static SpawnManager spawnManager;
+    public static void SetSpawnManager(SpawnManager spawn)
+    {
+        spawnManager = spawn;
+    }
+    public static SpawnManager GetSpawnManager()
+    {
+        return spawnManager;
+    }
 }

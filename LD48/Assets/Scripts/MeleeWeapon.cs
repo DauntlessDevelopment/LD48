@@ -9,6 +9,8 @@ public class MeleeWeapon : MonoBehaviour
     private float weapon_reach = 4f;
     private float attack_width = 2f;
 
+    public GameObject debug_hit_object;
+
     public GameObject head;
     public AttackCollider ac_prefab;
 
@@ -44,6 +46,17 @@ public class MeleeWeapon : MonoBehaviour
             anim.SetTrigger("Attack");
             AttackCollider ac = Instantiate(ac_prefab, head.transform.position, head.transform.rotation);
             ac.Initialise(damage, weapon_reach, is_owned_by_player, attack_width);
+            //RaycastHit hit;
+            //if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+            //{
+            //    Debug.Log("Raycast hit");
+            //    if (hit.transform.GetComponent<Agent>() != null)
+            //    {
+            //        Debug.Log("Raycast hit was an agent");
+            //        Instantiate(debug_hit_object, hit.point, transform.rotation);
+            //        hit.transform.GetComponent<Rigidbody>().AddForceAtPosition(100 * transform.forward, hit.point);
+            //    }
+            //}
         }
 
 

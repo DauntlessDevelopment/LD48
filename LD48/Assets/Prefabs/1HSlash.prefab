@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6411870045491170644}
   - component: {fileID: 6411870045491170640}
   - component: {fileID: 6411870045491170641}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 6411870046467994903}
   - component: {fileID: 6411870046467994900}
   - component: {fileID: 6411870046467994901}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: 1HSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   weaponType: 0
+  debug_hit_object: {fileID: 658865026232151494, guid: cbe7045cfd37c67438ed7fae6513a459, type: 3}
   head: {fileID: 0}
   ac_prefab: {fileID: 6947032679216233792, guid: eace8b75fd0f46d40afcac0162abf4cd, type: 3}
 --- !u!95 &6411870046467994901

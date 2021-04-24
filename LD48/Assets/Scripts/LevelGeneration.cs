@@ -6,6 +6,10 @@ public class LevelGeneration : MonoBehaviour
 {
     List<FloorManager> floors = new List<FloorManager>();
 
+    private List<List<GameObject>> enemy_type_lists = new List<List<GameObject>>();
+
+    public List<GameObject> enemy_listA = new List<GameObject>();
+
 
     public GameObject room_prefab;
     public GameObject stairs_prefab;
@@ -16,6 +20,7 @@ public class LevelGeneration : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         ServiceLocator.SetLevelGeneration(this);
+        enemy_type_lists.Add(enemy_listA);
     }
     // Start is called before the first frame update
     void Start()
@@ -153,6 +158,10 @@ public class LevelGeneration : MonoBehaviour
         floors.Add(new_floor);
         Debug.Log($"Added floor, floor count is : {floors.Count}");
         floor_num++;
+
+        int id = Random.Range(0, enemy_type_lists.Count);
+        new_floor.enemy_types = enemy_type_lists[id];
+
         ServiceLocator.SetCurrentFloor(new_floor);
     }
 
@@ -169,6 +178,7 @@ public class LevelGeneration : MonoBehaviour
         {
 
             Vector3 world_pos = new Vector3(r.grid_coords.x, floors[id].height, r.grid_coords.y) * 50f;
+            r.world_pos = world_pos;
             GameObject new_room = Instantiate(room_prefab, world_pos, new Quaternion());
 
             r.room_object = new_room;
@@ -207,5 +217,10 @@ public class LevelGeneration : MonoBehaviour
         }
 
         GameObject new_stairs = Instantiate(stairs_prefab, world_p + offset, rot);
+    }
+
+    public void FillRooms(int id)
+    {
+        floors[id].PopulateFloor();
     }
 }

@@ -448,6 +448,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4140416421068534368, guid: f97ad619c6734ab4abcb6f331d79e3c3, type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4140416421068534374, guid: f97ad619c6734ab4abcb6f331d79e3c3, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1092,6 +1096,8 @@ GameObject:
   - component: {fileID: 1544163467}
   - component: {fileID: 1544163466}
   - component: {fileID: 1544163468}
+  - component: {fileID: 1544163470}
+  - component: {fileID: 1544163469}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1111,6 +1117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d660e987b2d4478da21394fe80cbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy_listA:
+  - {fileID: 4218388808704691018, guid: 597a6d1d4c774be4c9ad2e0a54561ac9, type: 3}
   room_prefab: {fileID: 7715906002643815880, guid: 9f2119a331c7e6e44b0bd0bb824154d4, type: 3}
   stairs_prefab: {fileID: 3782736915939753576, guid: 5c6ae6794585ccd46b20569d1d274055, type: 3}
   floor_num: 0
@@ -1138,6 +1146,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fa567482c25a954f9d77dba66ea7718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1544163469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544163465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d676c4f1c4bed14ba2b4cb7d6f529f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1544163470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544163465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c56db2181a59a41ae932a8bc79aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1617644156

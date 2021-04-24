@@ -5,10 +5,11 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     private int damage = 10;
-    private float weapon_reach = 3f;
+    private float weapon_reach = 1f;
     private bool is_owned_by_player = false;
     private Vector3 initial_pos = new Vector3();
     private int enemies_hit = 0;
+    public GameObject debug_hit_object;
 
     private float travel_speed = 10f;
 
@@ -45,16 +46,19 @@ public class AttackCollider : MonoBehaviour
             if (a.IsPlayer() != is_owned_by_player)
             {
                 a.ModifyHealth(-damage);
-                enemies_hit++;
-
                 RaycastHit hit;
-                if(Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, 2))
                 {
-                    if(hit.transform.GetComponent<Agent>() != null)
+                    if (hit.transform.GetComponentInParent<Agent>() != null)
                     {
+                        Instantiate(debug_hit_object, hit.point, transform.rotation);
                         a.GetComponent<Rigidbody>().AddForceAtPosition(100 * transform.forward, hit.point);
                     }
                 }
+
+                enemies_hit++;
+
+   
 
                 
             }
