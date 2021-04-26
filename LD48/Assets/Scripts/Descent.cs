@@ -48,6 +48,8 @@ public class Descent : MonoBehaviour
             }
 
             collision.gameObject.transform.position = start_pos;
+
+            ServiceLocator.GetUIManager().LevelUp();
         }
 
 

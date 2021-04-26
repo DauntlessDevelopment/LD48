@@ -37,6 +37,8 @@ public class LevelGeneration : MonoBehaviour
     public void GenerateFloor()
     {
         FloorManager new_floor = new FloorManager();
+        new_floor.max_dist += floors.Count;
+        new_floor.num_rooms += floors.Count;
         Room current_room = new_floor.rooms[0];
         if(floors.Count >0)
         {

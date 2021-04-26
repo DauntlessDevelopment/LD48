@@ -26,6 +26,7 @@ public class SpawnManager : MonoBehaviour
     {
         GameObject spawned = Instantiate(prefab, location, rotation);
         spawned_enemies.Add(spawned.GetComponent<EnemyAI>());
+
         return spawned;
     }
 }

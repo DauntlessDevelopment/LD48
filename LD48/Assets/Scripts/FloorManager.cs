@@ -5,8 +5,8 @@ using UnityEngine;
 public class FloorManager
 {
     public List<Room> rooms = new List<Room>();
-    public int num_rooms = 10;
-    public float max_dist = 6;
+    public int num_rooms = 8;
+    public float max_dist = 3;
 
     public int height = 0;
 
@@ -44,9 +44,13 @@ public class FloorManager
         //check collision sphere//
         //rng spawn based on density//
         //rng select enemy from list of enemy types//
-
+        Room start = rooms[0];
         foreach(var r in rooms)
         {
+            if(r == start)
+            {
+                continue;
+            }
             List<Vector3> spawn_points = new List<Vector3>();
             Vector3 sw_corner = r.world_pos - new Vector3(25, 0, 25);
 
@@ -66,7 +70,28 @@ public class FloorManager
                     {
                         int rng_spawn_type = Random.Range(0, enemy_types.Count);
 
-                        ServiceLocator.GetSpawnManager().SpawnEnemy(enemy_types[rng_spawn_type].gameObject, sp, enemy_types[rng_spawn_type].transform.rotation);
+                        Vector3 pos = sp;
+
+                        if(enemy_types[rng_spawn_type].GetComponent<EnemyAI>()!=null)
+                        {
+                            if (enemy_types[rng_spawn_type].GetComponent<EnemyAI>().GetEnemyType() == EnemyAI.EnemyType.soldier)
+                            {
+                                pos -= new Vector3(0, 1, 0);
+                            }
+                        }
+                        else
+                        {
+                            if (enemy_types[rng_spawn_type].GetComponentInChildren<EnemyAI>().GetEnemyType() == EnemyAI.EnemyType.werm)
+                            {
+                                pos -= new Vector3(0, 1.75f, 0);
+                            }
+                            else if(enemy_types[rng_spawn_type].GetComponentInChildren<EnemyAI>().GetEnemyType() == EnemyAI.EnemyType.fly)
+                            {
+                                pos = sp;
+                            }
+                        }
+
+                        ServiceLocator.GetSpawnManager().SpawnEnemy(enemy_types[rng_spawn_type].gameObject, pos, enemy_types[rng_spawn_type].transform.rotation);
                         
                     }
                 }

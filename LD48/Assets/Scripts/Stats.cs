@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Stats
 {
-    private int strength = 0; //health large weapons armour
-    private int intellect = 0; //spells robes 
-    private int agility = 0; //bows daggers thrown
+    private int strength = 1; //health large weapons armour
+    private int intellect = 1; //spells robes 
+    private int agility = 1; //bows daggers thrown
 
 
     public int GetStrength()
